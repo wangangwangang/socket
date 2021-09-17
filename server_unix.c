@@ -23,7 +23,7 @@ int main()
 
 	bind(sockfd, (struct sockaddr *)&ser_addr, sizeof(ser_addr));
 
-	listen(sockfd, 5);
+	listen(sockfd, 2);
 
 	l_sockfd = accept(sockfd, (struct sockaddr *)&cli_addr, &cli_len);
 
