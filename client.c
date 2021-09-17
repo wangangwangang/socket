@@ -2,22 +2,28 @@
 #include <unistd.h>
 #include <arpa/inet.h>
 
+#define IP   "127.0.0.1"
+#define PORT 8081
+
 int main()
 {
 	int sockfd;
-	struct sockaddr_in seraddr;
-	char ip[128] = "127.0.0.1";
-	int port = 8081;
-
+	struct sockaddr_in ser_addr;
+	
 	sockfd = socket(AF_INET, SOCK_STREAM, 0);
 
-	seraddr.sin_family = AF_INET;
-	seraddr.sin_port = htons(port);
-	inet_pton(AF_INET, ip, &seraddr.sin_addr);
+	ser_addr.sin_family = AF_INET;
+	ser_addr.sin_port = htons(PORT);
+	inet_pton(AF_INET, IP, &ser_addr.sin_addr.s_addr);
 	
-	connect(sockfd, (struct sockaddr *)&seraddr, sizeof(struct sockaddr_in));
+	connect(sockfd, (struct sockaddr *)&ser_addr, sizeof(ser_addr));
 
-	write(sockfd, "hello", sizeof("hello"));
+	while(1) {
+		sleep(3);
+		write(sockfd, "hello", sizeof("hello"));
+	}
 
+	close(sockfd);
+	
 	return 0;
 }
