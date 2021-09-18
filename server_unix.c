@@ -19,11 +19,11 @@ int main()
 
 	ser_addr.sun_family = AF_UNIX;
 	strcpy(ser_addr.sun_path, SOCK_FILE);
+	
 	unlink(SOCK_FILE);
-
 	bind(sockfd, (struct sockaddr *)&ser_addr, sizeof(ser_addr));
 
-	listen(sockfd, 2);
+	listen(sockfd, 5);
 
 	l_sockfd = accept(sockfd, (struct sockaddr *)&cli_addr, &cli_len);
 
@@ -34,7 +34,7 @@ int main()
 
 		printf("buff:%s\n", buff);
 	}
-	
+
 	close(l_sockfd);
 	close(sockfd);
 

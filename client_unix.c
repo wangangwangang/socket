@@ -4,7 +4,7 @@
 #include <unistd.h>
 #include <string.h>
 
-#define SOCK_FILE "/tmp/socket"
+#define SOCK_FILE "/tmp/.tfs_cfg"
 
 int main()
 {
@@ -16,13 +16,9 @@ int main()
 	ser_addr.sun_family = AF_UNIX;
 	strcpy(ser_addr.sun_path, SOCK_FILE);
 
-
 	connect(sockfd, (struct sockaddr *)&ser_addr, sizeof(ser_addr));
 
-	while(1) {
-		sleep(3);
-		write(sockfd, "hello", sizeof("hello"));
-	}
+	write(sockfd, "hello", sizeof("hello"));
 	
 	close(sockfd);	
 
